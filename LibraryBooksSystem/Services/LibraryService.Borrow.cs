@@ -8,31 +8,31 @@ public partial class LibraryService
     // Borrow a book by ID
     public bool BorrowBook(int id, out string message)
     {
-        // «· Õﬁﬁ „‰ ÊÃÊœ «·ﬂ «» «’·« 
+        // Check that the ID is valid
         if (id <= 0)
         {
             message = "Invalid book ID.";
             return false;
         }
 
-        // »‰” Œœ„ «·œ«·… «·Ã«Â“… «··Ì » œÊ— ⁄‰ √Ê· ﬂ «» »Ìÿ«»ﬁ —ﬁ„ «·ﬂ «» «··Ì « »⁄ ·‰«
+        // Find the book using the central lookup method
         var book = GetBookById(id);
 
-        // ·Ê „›Ì‘ ﬂ «» »«·—ﬁ„ œÂ
+        // Check that the book exists
         if (book == null)
         {
             message = "Book not found.";
             return false;
         }
 
-        // ·Ê «·ﬂ «» „” ⁄«—
+        // Check that the book is available
         if (!book.IsAvailable)
         {
             message = "Book is already borrowed.";
             return false;
         }
 
-        // ≈⁄«—… «·ﬂ «» 
+        // Mark the book as borrowed
         book.IsAvailable = false;
         message = "Book borrowed successfully.";
         return true;
@@ -41,31 +41,31 @@ public partial class LibraryService
     // Return a book by ID
     public bool ReturnBook(int id, out string message)
     {
-        // «· Õﬁﬁ „‰ ÊÃÊœ «·ﬂ «» «’·«
+        // Check that the ID is valid
         if (id <= 0)
         {
             message = "Invalid book ID.";
             return false;
         }
 
-        // »‰” Œœ„ «·œ«·… «·Ã«Â“… «··Ì » œÊ— ⁄‰ √Ê· ﬂ «» »Ìÿ«»ﬁ —ﬁ„ «·ﬂ «» «··Ì « »⁄ ·‰«
+        // Find the book using the central lookup method
         var book = GetBookById(id);
 
-        // ·Ê „›Ì‘ ﬂ «» »«·—ﬁ„ œÂ
+        // Check that the book exists
         if (book == null)
         {
             message = "Book not found.";
             return false;
         }
 
-        // ·Ê «·ﬂ «» „ «Õ √’·« Ê„‘ „” ⁄«—
+        // Check that the book is actually borrowed
         if (book.IsAvailable)
         {
             message = "Book is already available (not borrowed).";
             return false;
         }
 
-        // ≈—Ã«⁄ «·ﬂ «» 
+        // Mark the book as available again
         book.IsAvailable = true;
         message = "Book returned successfully.";
         return true;
