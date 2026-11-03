@@ -64,3 +64,11 @@ public partial class LibraryService
         .Where(book => book.IsAvailable)
         .ToList();
 }
+
+
+
+
+
+
+
+
